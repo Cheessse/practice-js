@@ -8,5 +8,13 @@ function onFormSubmit(e) {
   const inputValue = e.target.elements.taskName.value.trim();
   if (inputValue === '') return;
   console.dir(inputValue);
+  
+  addTaskSubmit(inputValue);
   e.target.reset();
+}
+
+function addTaskSubmit(inputValue) {
+
+  const elementLi = `<li>${inputValue}</li>`;
+  list.insertAdjacentHTML("beforeend", elementLi);
 }
