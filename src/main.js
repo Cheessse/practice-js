@@ -5,6 +5,8 @@ const TASK_KEY = 'taskKey';
 
 form.addEventListener('submit', onFormSubmit);
 
+renderTasks()
+
 function onFormSubmit(e) {
   e.preventDefault();
   const inputValue = e.target.elements.taskName.value.trim();
@@ -29,4 +31,11 @@ function savetoLS(inputValue) {
 
   const toLS = JSON.stringify(arr);
   localStorage.setItem(TASK_KEY, toLS);
+}
+
+function renderTasks() {
+  const localValue = JSON.parse(localStorage.getItem(TASK_KEY));
+  if (!localValue) return;
+  const arrays = localValue.map((el) => `<li>${el}</li>`).join("");
+  list.insertAdjacentHTML('beforeend', arrays);
 }
