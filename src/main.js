@@ -1,7 +1,8 @@
 import { setLocalStorage, getLocalStorage } from './js/ls-helpers.js';
-import './js/remove-elements.js';
 import refs from './js/refs.js';
 import { TASK_KEY } from './js/constants.js';
+import { renderTasks } from './js/render.js';
+import { removeElements } from './js/remove-elements.js';
 
 import { nanoid } from 'nanoid';
 
@@ -9,7 +10,8 @@ const { form, list } = refs;
 
 form.addEventListener('submit', onFormSubmit);
 
-renderTasks();
+renderTasks(TASK_KEY, list);
+removeElements(TASK_KEY, list);
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -39,15 +41,4 @@ function savetoLS(inputValue, id) {
   });
 
   setLocalStorage(TASK_KEY, arr);
-}
-
-function renderTasks() {
-  const localValue = getLocalStorage(TASK_KEY);
-  if (!localValue) return;
-  const arrays = localValue
-    .map(
-      el => `<li id='${el.id}'>${el.text} <button type='button'>X</button></li>`
-    )
-    .join('');
-  list.insertAdjacentHTML('beforeend', arrays);
 }
