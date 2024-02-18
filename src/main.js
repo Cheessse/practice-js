@@ -1,11 +1,11 @@
+import { setLocalStorage, getLocalStorage } from './js/ls-helpers.js';
+import './js/remove-elements.js';
+import refs from './js/refs.js';
+import { TASK_KEY } from './js/constants.js';
+
 import { nanoid } from 'nanoid';
 
-console.log(nanoid());
-
-const form = document.querySelector('#task-form');
-const list = document.querySelector('.task-list');
-
-const TASK_KEY = 'taskKey';
+const { form, list } = refs;
 
 form.addEventListener('submit', onFormSubmit);
 
@@ -50,20 +50,4 @@ function renderTasks() {
     )
     .join('');
   list.insertAdjacentHTML('beforeend', arrays);
-}
-
-function setLocalStorage(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
-}
-
-list.addEventListener('click', onDeleteElement);
-
-function onDeleteElement(e) {
-  if (e.target.nodeName !== 'BUTTON') return;
-
-  e.target.parentNode.remove();
 }
